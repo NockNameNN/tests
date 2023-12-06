@@ -20,5 +20,13 @@ void Form::start() {
     QString str = ui->str->text();
     QString sub_str = ui->sub_str->text();
 
-    ui->result->setText("result.....");
+    int index = str.indexOf(sub_str);
+
+    QString result;
+    while (index != -1) {
+        result.append(QString::number(index) + " ");
+        index = str.indexOf(sub_str, index + 1);
+    }
+
+    ui->result->setText(result.isEmpty() ? "Substring not found" : result);
 }
