@@ -20,13 +20,49 @@ void Form::start() {
     QString str = ui->str->text();
     QString sub_str = ui->sub_str->text();
 
-    int index = str.indexOf(sub_str);
+    QVector<int> result = boyerMooreSearch(str, sub_str);
 
-    QString result;
-    while (index != -1) {
-        result.append(QString::number(index) + " ");
-        index = str.indexOf(sub_str, index + 1);
+    if (result.isEmpty()) {
+        ui->result->setText("Substring not found");
+    } else {
+        QString resultString;
+        for (int i : result) {
+            resultString.append(QString::number(i) + " ");
+        }
+        ui->result->setText(resultString);
+    }
+}
+
+QVector<int> Form::boyerMooreSearch(const QString &text, const QString &pattern) {
+    QVector<int> indices;
+    int n = text.length();
+    int m = pattern.length();
+
+    if (m == 0 || m > n) {
+        return indices;
     }
 
-    ui->result->setText(result.isEmpty() ? "Substring not found" : result);
+    QVector<int> badChar(256, -1);
+
+    for (int i = 0; i < m; ++i) {
+        badChar[pattern[i].toLatin1()] = i;
+    }
+
+    int s = 0;
+    while (s <= n - m) {
+        int j = m - 1;
+
+        while (j >= 0 && pattern[j] == text[s + j]) {
+            --j;
+        }
+
+        if (j < 0) {
+            indices.append(s);
+            s += m;
+        } else {
+            s += std::max(1, j - badChar[text[s + j].toLatin1()]);
+        }
+    }
+
+    return indices;
 }
