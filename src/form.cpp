@@ -33,7 +33,7 @@ void Form::start() {
     }
 }
 
-QVector<int> Form::boyerMooreSearch(const QString &text, const QString &pattern) {
+QVector<int> boyerMooreSearch(const QString &text, const QString &pattern) {
     QVector<int> indices;
     int n = text.length();
     int m = pattern.length();
