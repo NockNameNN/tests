@@ -63,6 +63,6 @@ QVector<int> Form::boyerMooreSearch(const QString &text, const QString &pattern)
             s += std::max(1, j - badChar[text[s + j].toLatin1()]);
         }
     }
-
+//2
     return indices;
 }
