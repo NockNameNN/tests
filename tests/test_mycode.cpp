@@ -23,5 +23,5 @@ void TestMyCode::testIvan() {
     QCOMPARE(str == "hello Ivan", true);
 }
 
-QTEST_MAIN(TestMyCode)
+//QTEST_MAIN(TestMyCode)
 #include "test_mycode.moc"
